@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LuxeGlow Salon Website
 
-## Getting Started
+Premium, conversion-focused salon website built with Next.js App Router, React 18, TypeScript, Tailwind CSS, Framer Motion, Lucide Icons, React Hook Form, and Zod.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router)
+- React 18
+- TypeScript
+- Tailwind CSS v4
+- Framer Motion
+- Lucide React
+- React Hook Form + Zod
+- Sonner (toast notifications)
+
+## Run Locally
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Start dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Production check:
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Implemented Pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/` Home
+- `/services` Services & Pricing
+- `/booking` Multi-step booking form
+- `/gallery` Before/After gallery with lightbox
+- `/contact` Contact details + validated form + map
+- `/about` Team and trust page
+- `/api/bookings` Mock booking API (in-memory store)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## How to Edit Services and Prices
 
-## Deploy on Vercel
+Edit:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `data/services.ts`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Update these collections:
+
+- `serviceCategories`
+- `services`
+
+Each service supports:
+
+- `id`
+- `categoryId`
+- `name`
+- `price`
+- `duration`
+- `description`
+- `featured` (optional)
+
+"Book this" buttons and pricing sections update automatically from this file.
+
+## How to Replace Images
+
+Images are currently remote Unsplash placeholders for fast setup.
+
+Main locations:
+
+- Home hero and sections: `app/(site)/page.tsx`
+- Gallery images: `data/gallery.ts`
+- Team images: `data/team.ts`
+
+### If using another remote domain
+
+Allow it in:
+
+- `next.config.ts` under `images.remotePatterns`
+
+## How to Update Contact, WhatsApp, Hours, and Map
+
+Edit:
+
+- `data/site.ts`
+
+Change values for:
+
+- `phone`
+- `whatsapp`
+- `messenger`
+- `email`
+- `address`
+- `hours`
+- `mapEmbed`
+- `directionsLink`
+
+Changes are reflected globally (top info bar, footer, contact page, floating buttons, and map sections).
+
+## Booking Flow Notes
+
+- Booking form is in `components/site/booking-form.tsx`
+- Validation schema uses Zod
+- Submission posts to `POST /api/bookings`
+- Successful bookings return a reference like `LG-2026-ABCDE`
+- Bookings are stored in memory through `lib/booking-store.ts` (mock storage)
+
+## Content/Data Files
+
+- `data/services.ts`
+- `data/gallery.ts`
+- `data/testimonials.ts`
+- `data/faqs.ts`
+- `data/promos.ts`
+- `data/team.ts`
+- `data/site.ts`
+
+## Accessibility and SEO
+
+- Semantic page sections and headings
+- Keyboard accessible navigation/actions
+- Form labels and validation feedback
+- Metadata + OpenGraph configured in `app/layout.tsx` and per-page metadata
+
+## Notes
+
+- Placeholder product references are non-affiliation mentions.
+- For production, replace mock API storage with a database-backed booking system.
